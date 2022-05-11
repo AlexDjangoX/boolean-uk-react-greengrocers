@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, addToCount, subtractFromCount, cartTotal }) => {
   return (
     <Fragment>
       <main id="cart">
@@ -15,9 +15,19 @@ const Cart = ({ cart }) => {
                   alt={`${item.name}`}
                 />
                 <p>{`${item.name}`}</p>
-                <button className="quantity-btn remove-btn center">-</button>
-                <span className="quantity-text center">1</span>
-                <button className="quantity-btn add-btn center">+</button>
+                <button
+                  className="quantity-btn remove-btn center"
+                  onClick={() => subtractFromCount(item)}
+                >
+                  -
+                </button>
+                <span className="quantity-text center">{item.tally}</span>
+                <button
+                  className="quantity-btn add-btn center"
+                  onClick={() => addToCount(item)}
+                >
+                  +
+                </button>
               </li>
             ))}
           </ul>
@@ -27,7 +37,7 @@ const Cart = ({ cart }) => {
             <h3>Total</h3>
           </div>
           <div>
-            <span className="total-number">£0.00</span>
+            <span className="total-number">£{cartTotal}</span>
           </div>
         </div>
       </main>
