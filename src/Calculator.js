@@ -97,12 +97,7 @@ function reducer(state, { type, payload }) {
   }
 }
 
-function evaluate({
-  currentOperand,
-  previousOperand,
-  operation,
-  hideCalculator
-}) {
+function evaluate({ currentOperand, previousOperand, operation }) {
   const prev = parseFloat(previousOperand)
   const current = parseFloat(currentOperand)
   if (isNaN(prev) || isNaN(current)) return ''
@@ -145,10 +140,11 @@ const Calculator = ({ hideCalculator }) => {
   return (
     <Modal>
       <div className={classes['calculator-grid']}>
-        <Button auto color="secondary" rounded flat onPress={hideCalculator}>
-          Close Calculator
-        </Button>
-
+        <div className={classes['center-close-button']}>
+          <Button auto color="secondary" rounded flat onPress={hideCalculator}>
+            Close
+          </Button>
+        </div>
         <div className={classes.output}>
           <div className={classes['previous-operand']}>
             {formatOperand(previousOperand)} {operation}
@@ -156,7 +152,7 @@ const Calculator = ({ hideCalculator }) => {
           <div className="current-operand">{formatOperand(currentOperand)}</div>
         </div>
         <button
-          className="span-two"
+          className={classes['span-two']}
           onClick={() => dispatch({ type: ACTIONS.CLEAR })}
         >
           AC
@@ -184,7 +180,7 @@ const Calculator = ({ hideCalculator }) => {
         <DigitalButton digit="0" dispatch={dispatch} />
         <button
           onClick={() => dispatch({ type: ACTIONS.EVALUATE })}
-          className="span-two"
+          className={classes['span-two']}
         >
           =
         </button>

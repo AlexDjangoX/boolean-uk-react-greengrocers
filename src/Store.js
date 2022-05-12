@@ -169,17 +169,16 @@ const Store = () => {
 export default Store
 
 // const subtractFromCount = item => {
-//     console.log('23.. subtracting')
-//     const updatedTally = storeItems.map(el =>
-//       el.id === item.id ? { ...el, tally: (el.tally -= 1) } : el
-//     )
-//     setStoreItems(updatedTally)
-//   }
+//   const updatedTally = storeItems.map(el =>
+//     el.id === item.id ? { ...el, tally: (el.tally -= 1) } : el
+//   )
+//   setStoreItems(updatedTally)
+// }
 
-//   const subtractFromCount = item => {
-//     setStoreItems(
-//       storeItems.map(el => {
-//         return el.id === item.id ? { ...el, tally: (el.tally -= 1) } : el
-//       })
-//     )
-//   }
+// const subtractFromCount = item => {
+//   setStoreItems(
+//     storeItems.map(el => {
+//       return el.id === item.id ? { ...el, tally: (el.tally -= 1) } : el
+//     })
+//   )
+// }
