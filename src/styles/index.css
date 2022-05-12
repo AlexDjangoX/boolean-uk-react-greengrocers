@@ -1,9 +1,9 @@
-@import "./reset.css";
+@import './reset.css';
 
 /* Typography */
 
 body {
-  font-family: "Trebuchet MS", "Lucida Sans", Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans', Arial, sans-serif;
 }
 
 h1,
@@ -23,7 +23,7 @@ button {
 /* Store */
 
 #store {
-  height: 40vh;
+  height: 50vh;
   padding: 1rem;
 
   overflow-y: scroll;
@@ -181,4 +181,11 @@ button {
     border-top: 2px solid #00675b;
     border-bottom: 2px solid #00675b;
   }
+}
+
+.sorting-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+
+  align-items: center;
 }
