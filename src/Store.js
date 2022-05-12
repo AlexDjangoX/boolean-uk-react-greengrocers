@@ -90,8 +90,7 @@ const Store = () => {
     let filteredItems = [...storeItems]
     if (showFruits) filteredItems = filterByFruit(filteredItems)
     if (showVeg) filteredItems = filterByVegetables(filteredItems)
-    if (showFruits && showVeg) filteredItems = storeItems
-
+    if (showFruits && showVeg) filteredItems = [...storeItems]
     if (sortAlpha) filteredItems = sortAlphabetically(filteredItems)
 
     return filteredItems
