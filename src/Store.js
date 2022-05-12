@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import initialStoreItems from './store-items'
 import Cart from './Cart'
+import Calculator from './Calculator'
 import { Checkbox } from '@nextui-org/react'
 import { Button, Grid } from '@nextui-org/react'
 
@@ -10,9 +11,8 @@ const filterByVegetables = storeItemList =>
 const filterByFruit = storeItemList =>
   storeItemList.filter(item => item.type === 'fruit')
 
-const sortAlphabetically = storeItemList => {
-  return storeItemList.sort((a, b) => a.name.localeCompare(b.name))
-}
+const sortAlphabetically = storeItemList =>
+  storeItemList.sort((a, b) => a.name.localeCompare(b.name))
 
 const Store = () => {
   const [storeItems, setStoreItems] = useState(initialStoreItems)
@@ -22,6 +22,16 @@ const Store = () => {
   const [showFruits, setShowFruits] = useState(false)
   const [showVeg, setShowVeg] = useState(false)
   const [sortAlpha, setSortAlpha] = useState(false)
+
+  const [calculatorVisible, setCalculatorVisible] = useState(false)
+
+  const hideCalculator = () => {
+    setCalculatorVisible(false)
+  }
+
+  const showCalculator = () => {
+    setCalculatorVisible(true)
+  }
 
   let count = 0
   const cartTotalAmount = () => {
@@ -62,8 +72,6 @@ const Store = () => {
     if (!cart.includes(item)) setCart([...cart, item])
   }
 
-  let filteredItems = storeItems
-
   const setFruitsOnly = () => {
     if (!showFruits) setShowFruits(true)
     if (showFruits) setShowFruits(false)
@@ -78,12 +86,16 @@ const Store = () => {
     console.log(sortAlpha)
   }
 
-  if (showFruits) filteredItems = filterByFruit(filteredItems)
-  if (showVeg) filteredItems = filterByVegetables(filteredItems)
-  if (showFruits && showVeg) filteredItems = storeItems
+  const conditionalRender = () => {
+    let filteredItems = [...storeItems]
+    if (showFruits) filteredItems = filterByFruit(filteredItems)
+    if (showVeg) filteredItems = filterByVegetables(filteredItems)
+    if (showFruits && showVeg) filteredItems = storeItems
 
-  if (sortAlpha) filteredItems = sortAlphabetically(filteredItems)
-  if (!sortAlpha) filteredItems = filteredItems
+    if (sortAlpha) filteredItems = sortAlphabetically(filteredItems)
+
+    return filteredItems
+  }
 
   return (
     <React.Fragment>
@@ -120,7 +132,7 @@ const Store = () => {
                 color="secondary"
                 rounded
                 flat
-                onPress={e => console.log(e.target.value)}
+                onPress={showCalculator}
               >
                 Calculator
               </Button>
@@ -128,9 +140,10 @@ const Store = () => {
           </Grid.Container>
         </div>
         <h1>Greengrocers</h1>
+        {calculatorVisible && <Calculator hideCalculator={hideCalculator} />}
 
         <ul className="item-list store--item-list">
-          {filteredItems.map(item => (
+          {conditionalRender().map(item => (
             <li key={item.id}>
               <div className="store--item-icon">
                 <img
