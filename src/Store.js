@@ -33,15 +33,17 @@ const Store = () => {
     setCalculatorVisible(true)
   }
 
+  let tempStoreItems = [...storeItems]
+
   let count = 0
   const cartTotalAmount = () => {
-    for (let item of storeItems) count += item.tally * item.price
+    for (let item of tempStoreItems) count += item.tally * item.price
     setCartTotal(Number(count.toFixed(2)))
   }
 
   const addToCount = item => {
     setStoreItems(
-      storeItems.map(el => {
+      tempStoreItems.map(el => {
         if (el.id === item.id) {
           el.tally += 1
         }
@@ -53,7 +55,7 @@ const Store = () => {
 
   const subtractFromCount = item => {
     setStoreItems(
-      storeItems.map(el => {
+      tempStoreItems.map(el => {
         if (el.id === item.id) {
           if (el.tally > 0) el.tally -= 1
           if (el.tally === 0) removeEmptyCart(el.id)
@@ -71,7 +73,7 @@ const Store = () => {
   const addToCart = item => {
     if (!cart.includes(item)) setCart([...cart, item])
     setStoreItems(
-      storeItems.map(el => {
+      tempStoreItems.map(el => {
         if (el.id === item.id) {
           el.tally = 1
         }
@@ -93,7 +95,6 @@ const Store = () => {
 
   const sort = () => {
     sortAlpha ? setSortAlpha(false) : setSortAlpha(true)
-    console.log(sortAlpha)
   }
 
   const conditionalRender = () => {
@@ -102,7 +103,12 @@ const Store = () => {
     if (showVeg) filteredItems = filterByVegetables(filteredItems)
     if (showFruits && showVeg) filteredItems = storeItems
 
-    if (sortAlpha) filteredItems = sortAlphabetically(filteredItems)
+    if (sortAlpha) {
+      filteredItems = sortAlphabetically(filteredItems)
+    } else {
+      console.log(filteredItems)
+      return filteredItems
+    }
 
     return filteredItems
   }
