@@ -70,6 +70,16 @@ const Store = () => {
 
   const addToCart = item => {
     if (!cart.includes(item)) setCart([...cart, item])
+    setStoreItems(
+      storeItems.map(el => {
+        if (el.id === item.id) {
+          el.tally = 1
+        }
+        return el
+      })
+    )
+
+    cartTotalAmount()
   }
 
   const setFruitsOnly = () => {
@@ -90,7 +100,8 @@ const Store = () => {
     let filteredItems = [...storeItems]
     if (showFruits) filteredItems = filterByFruit(filteredItems)
     if (showVeg) filteredItems = filterByVegetables(filteredItems)
-    if (showFruits && showVeg) filteredItems = [...storeItems]
+    if (showFruits && showVeg) filteredItems = storeItems
+
     if (sortAlpha) filteredItems = sortAlphabetically(filteredItems)
 
     return filteredItems
